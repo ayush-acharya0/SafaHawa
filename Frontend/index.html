@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokhara Pollution Reporter</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="" type="image/png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-container">
+        <a href="index.html" class="logo">
+          <i class="fas fa-leaf"></i>
+          <span>Pokhara Pollution Reporter</span>
+        </a>
+
+        <button class="hamburger" id="hamburger">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <nav class="nav-menu" id="navMenu">
+          <a href="index.html" class="nav-link active">Home</a>
+          <a href="/report" class="nav-link">Report</a>
+          <a href="about.html" class="nav-link">About</a>
+          <a href="trafficLogin.html" class="nav-link">Traffic Login</a>
+          <button
+            id="themeToggle"
+            class="theme-toggle"
+            aria-label="Toggle Dark Mode"
+          >
+            <i class="fas fa-moon"></i>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-content">
+          <div class="hero-text">
+            <h1>Make Pokhara Clean & Green</h1>
+            <p>
+              Report polluting vehicles easily and help our city breathe better.
+              Together, we can make a difference for our environment.
+            </p>
+            <a href="report.html" class="btn">Report Pollution Now</a>
+          </div>
+          <div class="hero-image">
+            <img
+              src="https://media.discordapp.net/attachments/1439241554228416564/1441095964999024701/gadi-check.png?ex=69208cb4&is=691f3b34&hm=16b01a0932ee0cd6b84aa619bc334cfade6abfbd63719ebd109352205630cf32&=&format=webp&quality=lossless&width=1268&height=734"
+              alt="Clean Environment"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section class="live-aqi container">
+        <h2 class="section-title">Live Air Quality in Pokhara</h2>
+        <div id="aqi-card" class="aqi-card">
+          <div class="aqi-header">
+            <i class="fas fa-wind"></i>
+            <span>Current Air Quality</span>
+          </div>
+          <div class="aqi-content">
+            <div class="aqi-value">
+              <span id="aqi-index">--</span>
+              <small>US AQI</small>
+            </div>
+            <div class="aqi-status">
+              <h3 id="aqi-text">Loading...</h3>
+              <p>PM2.5: <span id="pm25">--</span> µg/m³</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="stats container">
+        <h2 class="section-title">Community Impact</h2>
+        <div class="stats-cards">
+          <div class="stat-card">
+            <div class="stat-circle"><h3 id="totalReports">0</h3></div>
+            <p>Total Reports</p>
+          </div>
+          <div class="stat-card">
+            <div class="stat-circle"><h3 id="smokeReports">0</h3></div>
+            <p>Smoke Reports</p>
+          </div>
+          <div class="stat-card">
+            <div class="stat-circle"><h3 id="noiseReports">0</h3></div>
+            <p>Noise Reports</p>
+          </div>
+          <div class="stat-card">
+            <div class="stat-circle"><h3 id="leakReports">0</h3></div>
+            <p>Leak Reports</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="features container">
+        <h2 class="section-title">Why Use Our Platform</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-bolt"></i>
+            </div>
+            <h3>Fast & Easy</h3>
+            <p>
+              Submit reports in seconds with our simple form and upload evidence
+              directly from your device.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <h3>Community Power</h3>
+            <p>
+              Every report helps authorities take action faster for a cleaner
+              and healthier Pokhara.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-leaf"></i>
+            </div>
+            <h3>Eco Friendly</h3>
+            <p>
+              Our platform is designed with clean, green visuals and smooth
+              animations for a friendly experience.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <a href="trafficsignup.html">TrafficSignup</a>
+        <p>Made by students • Pokhara • © <span id="year"></span></p>
+      </div>
+    </footer>
+
+    <script src="stats.js"></script>
+    <script src="navbar.js"></script>
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      // Add fade-in animation to elements when they come into view
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("fade-in");
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll(".stat-card, .feature-card").forEach((el) => {
+        observer.observe(el);
+      });
+    </script>
+  </body>
+</html>

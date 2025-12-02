@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e6f2e6; /* light green background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background-color: #ffffff; /* white form background */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            width: 300px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #2e7d32; /* dark green heading */
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            color: #2e7d32;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #2e7d32;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #2e7d32;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #1b5e20; /* darker green on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Log In</h2>
+        <form id="loginForm" action="/login" method="POST">
+            <label for="name"> Username:</label>
+            <input type="text" id="name" name="name" required>
+
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Log In</button>
+            <p>Dont have account? <a href="signup.html">signup</a></p>
+        </form>
+    </div>
+</body>
+</html>

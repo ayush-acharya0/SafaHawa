@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Report Pollution - Pokhara Pollution Reporter</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="images.png" type="image/png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-container">
+        <a href="index.html" class="logo">
+          <i class="fas fa-leaf"></i>
+          <span>Pokhara Pollution Reporter</span>
+        </a>
+
+        <button class="hamburger" id="hamburger">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <nav class="nav-menu" id="navMenu">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="report.html" class="nav-link active">Report</a>
+          <a href="about.html" class="nav-link">About</a>
+          <button
+            id="themeToggle"
+            class="theme-toggle"
+            aria-label="Toggle Dark Mode"
+          >
+            <i class="fas fa-moon"></i>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="report-main container">
+      <div class="form-card">
+        <h2>Report a Polluting Vehicle</h2>
+        <p class="muted">Fields with <strong>*</strong> are required.</p>
+
+        <form id="reportForm" method="POST" action="/submit-report" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="vehicleCategory">Vehicle Category *</label>
+            <select id="vehicleCategory" name="vehicleCategory" required>
+              <option value="">Select Category</option>
+              <option>Two-Wheeler (Motorcycle/Scooter)</option>
+              <option>Three-Wheeler (Tempo/Rickshaw)</option>
+              <option>Four-Wheeler (Car/Jeep/Van)</option>
+              <option>Heavy Vehicle (Bus/Truck/Lorry)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="vehicleNumber">Vehicle Number Plate *</label>
+            <input
+              id="vehicleNumber"
+              type="text"
+              name="vehicleNumber"
+              placeholder="GA 1 KHA 1234"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="pollutionType">Pollution Type *</label>
+            <select id="pollutionType" name="pollutionType" required>
+              <option value="">Select type</option>
+              <option>Smoke</option>
+              <option>Noise</option>
+              <option>Leak</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="location">Location *</label>
+            <div class="location-input-group">
+              <input
+                id="location"
+                type="text"
+                name="location"
+                placeholder="Street or Landmark"
+                required
+              />
+              <button type="button" id="getLocationBtn" class="location-btn">
+                <i class="fas fa-location-arrow"></i> Get Location
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Your Phone Number (optional)</label>
+            <input id="phone" type="tel" name="phoneNumber" placeholder="98XXXXXXX" />
+          </div>
+
+          <div class="form-group">
+            <label for="details">Details *</label>
+            <textarea
+              id="details"
+              name="details"
+              placeholder="Describe the issue..."
+              required
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Evidence (image/video)</label>
+            <div class="evidence-buttons">
+              <button type="button" id="cameraBtn" class="btn-camera">
+                <i class="fas fa-camera"></i> Take Photo
+              </button>
+              <button type="button" id="galleryBtn" class="btn-gallery">
+                <i class="fas fa-images"></i> Gallery
+              </button>
+            </div>
+
+           
+
+            <input
+              id="cameraInput"
+              type="file"
+              name="image"
+              accept="image/*"
+              capture="environment"
+              class="hidden-input"
+            />
+            <input
+              id="evidence"
+              type="file"
+              name="image"
+              src="/report-image/${report._id}?index=0"
+              accept="image/*,video/*"
+              multiple
+              class="hidden-input"
+            />
+            <div id="filePreview" class="file-preview"></div>
+          </div>
+
+          <button type="submit" class="btn">Submit Report</button>
+        </form>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>Made by students • Pokhara • © <span id="year"></span></p>
+      </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+      <i class="fas fa-check-circle"></i>
+      <span id="toastMessage">Report submitted successfully!</span>
+    </div>
+
+    <script src="report.js"></script>
+    <script src="navbar.js"></script>
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>

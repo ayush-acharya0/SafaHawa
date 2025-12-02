@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Traffic Dashboard</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #e6f2e6;
+        margin: 0;
+        padding: 0;
+      }
+
+      header {
+        background-color: #2e7d32;
+        color: white;
+        padding: 15px;
+        text-align: center;
+      }
+
+      h1 {
+        margin: 0;
+      }
+
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 20px auto;
+      }
+
+      .report-card {
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+        padding: 15px;
+        margin-bottom: 20px;
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      .report-info {
+        flex: 1 1 300px;
+        margin-right: 20px;
+      }
+
+      .report-info p {
+        margin: 5px 0;
+      }
+
+      .report-image {
+        flex: 0 0 300px;
+      }
+
+      .report-image img {
+        max-width: 100%;
+        border-radius: 5px;
+      }
+
+      .logout {
+        float: right;
+        margin-top: -40px;
+        margin-right: 20px;
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      .logout:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Traffic Dashboard</h1>
+      <a class="logout" href="/traffic-logout">Logout</a>
+    </header>
+
+    <div class="container" id="reports-container"></div>
+
+ <script>
+async function fetchReports() {
+    try {
+        const res = await fetch('/getReport'); 
+        const reports = await res.json();
+
+        const container = document.getElementById('reports-container');
+        container.innerHTML = "";
+
+        reports.forEach(r => {
+            const card = document.createElement('div');
+            card.classList.add('report-card');
+
+            const info = document.createElement('div');
+            info.classList.add('report-info');
+            info.innerHTML = `
+                <p><b>Vehicle Category:</b> ${r.vehicleCategory}</p>
+                <p><b>Vehicle Number:</b> ${r.vehicleNumber}</p>
+                <p><b>Pollution Type:</b> ${r.pollutionType}</p>
+                <p><b>Location:</b> ${r.location}</p>
+                <p><b>Phone:</b> ${r.phoneNumber}</p>
+                <p><b>Details:</b> ${r.details}</p>
+            `;
+
+            const imageDiv = document.createElement('div');
+            imageDiv.classList.add('report-image');
+
+            if(r.images && r.images.length > 0){
+                r.images.forEach((imgObj, index) => {
+                    const img = document.createElement('img');
+                    img.src = `/report-image/${r._id}?index=${index}`;
+                    imageDiv.appendChild(img);
+                });
+            } else {
+                imageDiv.innerHTML = "<p>No image</p>";
+            }
+
+            card.appendChild(info);
+            card.appendChild(imageDiv);
+            container.appendChild(card);
+        });
+
+    } catch (err) {
+        console.error("Error fetching reports:", err);
+    }
+}
+
+fetchReports();
+</script>
+
+  </body>
+</html>

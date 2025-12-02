@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About - Pokhara Pollution Reporter</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="images.png" type="image/png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-container">
+        <a href="index.html" class="logo">
+          <i class="fas fa-leaf"></i>
+          <span>Pokhara Pollution Reporter</span>
+        </a>
+
+        <button class="hamburger" id="hamburger">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <nav class="nav-menu" id="navMenu">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="report.html" class="nav-link">Report</a>
+          <a href="about.html" class="nav-link active">About</a>
+          <button
+            id="themeToggle"
+            class="theme-toggle"
+            aria-label="Toggle Dark Mode"
+          >
+            <i class="fas fa-moon"></i>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="about-page container">
+      <div class="about-hero">
+        <h1>Our Aim</h1>
+        <p>
+          We want a cleaner Pokhara. By reporting polluting vehicles, we help
+          our city breathe cleaner air for everyone.
+        </p>
+      </div>
+
+      <section class="team grid">
+        <div class="member">
+          <img
+            src="https://media.discordapp.net/attachments/1439241554228416564/1441273503038050435/IMG-20251013-WA0011.jpg?ex=6921320c&is=691fe08c&hm=75d7f5b8fd2a5ce5866b544f8b65d58810ec448212515586cfbb9b3fb6d7cd66&=&format=webp&width=579&height=734"
+            alt="Aascharya Paudel"
+            class="avatar"
+          />
+          <h3>Aascharya Paudel</h3>
+          <div class="cloud">
+            I started this project after seeing thick smoke covering my route to
+            school. I couldn't stand by while our city's air became harder to
+            breathe.
+          </div>
+        </div>
+        <div class="member">
+          <img
+            src="https://scontent.fktm23-1.fna.fbcdn.net/v/t1.15752-9/552801893_2736441416558300_2609721145551227909_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=0024fc&_nc_ohc=3xqfhlx5NOoQ7kNvwFlkQB7&_nc_oc=Adl5xRavDTyAC0Cj42RWO0JnMk3pbHtCkoxfD3Sn7K9qVWRrZY8KX4awR8AbzhqRD33OTg-ItJbauVSgicbKfCXH&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fktm23-1.fna&oh=03_Q7cD3wFaaGZAWCbrB-VP7UTI-Kvuv_jfctscml2Zqc3PrMNJIw&oe=6946B76E"
+            alt="Sanjit Dhakal"
+            class="avatar"
+          />
+          <h3>Sanjit Dhakal</h3>
+          <div class="cloud">
+            I joined to help our city breathe cleaner air and create a better
+            future for the next generation.
+          </div>
+        </div>
+      </section>
+
+      <section class="vision">
+        <h2>Our Vision</h2>
+        <p>
+          We aim for a city where citizens can report pollution easily and
+          authorities respond quickly. Our goal is to make Pokhara a cleaner,
+          healthier place for everyone to live and enjoy.
+        </p>
+      </section>
+
+      <div style="text-align: center; margin-top: 40px">
+        <a href="report.html" class="btn">Make a Report</a>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>Made with care • Pokhara • © <span id="year"></span></p>
+      </div>
+    </footer>
+
+    <script src="navbar.js"></script>
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
