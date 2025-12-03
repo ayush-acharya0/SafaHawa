@@ -1,12 +1,13 @@
 // File preview functionality
 const evidenceInput = document.getElementById("evidence");
-const cameraInput = document.getElementById("cameraInput");
+//const cameraInput = document.getElementById("cameraInput");
 const filePreview = document.getElementById("filePreview");
-const cameraBtn = document.getElementById("cameraBtn");
+//const cameraBtn = document.getElementById("cameraBtn");
 const galleryBtn = document.getElementById("galleryBtn");
 const getLocationBtn = document.getElementById("getLocationBtn");
 const locationInput = document.getElementById("location");
 
+/*
 // Button event listeners
 if (cameraBtn) {
   cameraBtn.addEventListener("click", (e) => {
@@ -21,6 +22,7 @@ if (cameraBtn) {
     }
   });
 }
+*/
 
 if (galleryBtn) {
   galleryBtn.addEventListener("click", (e) => {
@@ -163,16 +165,24 @@ if (evidenceInput) {
   evidenceInput.addEventListener("change", handleFileSelect);
 }
 
+/*
 if (cameraInput) {
   cameraInput.addEventListener("change", handleFileSelect);
 }
+*/
+
+reportForm.addEventListener("submit", (e) => {
+  const dataTransfer = new DataTransfer();
+  allFiles.forEach(f => dataTransfer.items.add(f));
+  evidenceInput.files = dataTransfer.files;
+});
 
 
 // Form submission
 const reportForm = document.getElementById("reportForm");
 const toast = document.getElementById("toast");
 const toastMessage = document.getElementById("toastMessage");
-/*
+
 reportForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -279,7 +289,7 @@ Evidence: [PLEASE ATTACH FILE: ${fileName}]
     filePreview.innerHTML = "";
     allFiles = [];
   }, 2000);
-});*/
+});
 
 // Toast notification function
 function showToast(message, type = "success") {

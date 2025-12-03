@@ -80,7 +80,8 @@
     <div class="container" id="reports-container"></div>
 
  <script>
-async function fetchReports() {
+
+   async function fetchReports() {
     try {
         const res = await fetch('/getReport'); 
         const reports = await res.json();
@@ -92,6 +93,7 @@ async function fetchReports() {
             const card = document.createElement('div');
             card.classList.add('report-card');
 
+            // Report info
             const info = document.createElement('div');
             info.classList.add('report-info');
             info.innerHTML = `
@@ -99,22 +101,27 @@ async function fetchReports() {
                 <p><b>Vehicle Number:</b> ${r.vehicleNumber}</p>
                 <p><b>Pollution Type:</b> ${r.pollutionType}</p>
                 <p><b>Location:</b> ${r.location}</p>
-                <p><b>Phone:</b> ${r.phoneNumber}</p>
+                <p><b>Phone:</b> ${r.phoneNumber || "N/A"}</p>
                 <p><b>Details:</b> ${r.details}</p>
             `;
 
+            // Image
             const imageDiv = document.createElement('div');
             imageDiv.classList.add('report-image');
+            const img = document.createElement('img');
 
-            if(r.images && r.images.length > 0){
-                r.images.forEach((imgObj, index) => {
-                    const img = document.createElement('img');
-                    img.src = `/report-image/${r._id}?index=${index}`;
-                    imageDiv.appendChild(img);
-                });
+            if (r.images) {
+                img.src = r.images;
+                img.alt = "Uploaded Evidence";
             } else {
-                imageDiv.innerHTML = "<p>No image</p>";
+                img.alt = "No image";
+                img.src = "placeholder.png"; 
             }
+
+            img.loading = "lazy";
+            img.style.width = "100%";
+            img.style.borderRadius = "8px";
+            imageDiv.appendChild(img);
 
             card.appendChild(info);
             card.appendChild(imageDiv);
@@ -127,6 +134,8 @@ async function fetchReports() {
 }
 
 fetchReports();
+
+
 </script>
 
   </body>
