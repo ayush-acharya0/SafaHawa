@@ -3,14 +3,12 @@ require('dotenv').config();
 const cors = require("cors");
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
+
 const Traffic = require("./models/Traffic");
 const Report=require('./models/report')
 const User = require("./models/User");
+
 const multer = require("multer");
-const storage = multer.memoryStorage();
-const upload = multer({ storage });
-
-
 
 const app = express();
 const port = process.env.PORT ||3000;
@@ -20,10 +18,41 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "../Frontend")));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/uploads", express.static("uploads"));
+
 
 mongoose.connect(process.env.MONGODB_URL)
 .then(()=>console.log("Connected to MongoDB"))
 .catch((err)=>console.log("Error connecting to MongoDB:", err));
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads/"); // store images here
+  },
+  filename: (req, file, cb) => {
+    const uniqueName = Date.now() + "-" + file.originalname;
+    cb(null, uniqueName);
+  },
+});
+const upload = multer({ storage });
+
+app.post("/upload", upload.single("image"), async (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ error: "No image uploaded" });
+  }
+  // public URL of image
+  const imageUrl = `/uploads/${req.file.filename}`;
+
+  res.json({
+    message: "Image uploaded successfully",
+    imageUrl: imageUrl,
+  });
+});
+
+
+
+
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../Frontend", "index.html"));
@@ -62,15 +91,19 @@ app.post("/login", async (req, res) => {
   }});
 
 
-  app.post("/submit-report", upload.array("image"), async (req, res) => {
+  app.post("/submit-report", upload.single("image"), async (req, res) => {
   try {
     const { vehicleCategory, vehicleNumber, pollutionType, location, phoneNumber, details } = req.body;
 
-    const images = req.files?.map(file => ({
+    /*const images = req.files?.map(file => ({
       data: file.buffer,
       contentType: file.mimetype
-    })) || [];
-    console.log("Received report:", { vehicleCategory, vehicleNumber, pollutionType, location, phoneNumber, details, imagesCount: images.length });
+    })) || [];*/
+console.log(req.file);
+    const imageUrl = req.file ? `/uploads/${req.file.filename}` : null;
+
+
+    console.log("Received report:", { vehicleCategory, vehicleNumber, pollutionType, location, phoneNumber, details , imageUrl});
     const reportData = {
       vehicleCategory,
       vehicleNumber,
@@ -78,7 +111,7 @@ app.post("/login", async (req, res) => {
       location,
       phoneNumber,
       details,
-      images     
+      images: imageUrl,   
     };
 
     await Report.create(reportData);
@@ -104,7 +137,7 @@ app.get("/getReport", async (req, res) => {
       location: r.location,
       phoneNumber: r.phoneNumber,
       details: r.details,
-      hasImage: r.images && r.images.length > 0
+      image: r.images || null
 
     }));
     res.status(200).json(reportsJson);
