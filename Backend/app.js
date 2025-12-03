@@ -10,6 +10,8 @@ const multer = require("multer");
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
+
+
 const app = express();
 const port = process.env.PORT ||3000;
 const path = require("path");
@@ -19,9 +21,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "../Frontend")));
 
-mongoose.connect(process.env.MONGODB_URL,{ useNewUrlParser: true, useUnifiedTopology: true }
-
-)
+mongoose.connect(process.env.MONGODB_URL)
 .then(()=>console.log("Connected to MongoDB"))
 .catch((err)=>console.log("Error connecting to MongoDB:", err));
 
